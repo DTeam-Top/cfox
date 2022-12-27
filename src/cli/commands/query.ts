@@ -92,9 +92,8 @@ export async function queryCommand(
     `try to query event ${jsonAbi[0].name}(${eventArgs.join(',')}).`
   );
 
-  const pages = Math.ceil(results.length / MAX_ITEMS_PER_PAGE);
-
   if (results.length > MAX_ITEMS_PER_PAGE) {
+    const pages = Math.ceil(results.length / MAX_ITEMS_PER_PAGE);
     for (let i = 0; i < pages; i++) {
       log(
         vorpal,
@@ -107,5 +106,7 @@ export async function queryCommand(
         }
       }
     }
+  } else {
+    log(vorpal, results);
   }
 }

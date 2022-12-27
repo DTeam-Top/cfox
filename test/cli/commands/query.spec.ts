@@ -131,6 +131,15 @@ test.serial('queryCommand: query (pagination)', async t => {
       start: 'earliest',
     },
     {end: 'latest'},
+    {
+      eventAbi:
+        'event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)',
+    },
+    {args: '1 2'},
+    {
+      start: 'earliest',
+    },
+    {end: 'latest'},
     {confirm: false},
     {
       eventAbi:
@@ -151,6 +160,13 @@ test.serial('queryCommand: query (pagination)', async t => {
   } as unknown as Context;
   const query = createOrSetStub(
     [
+      [
+        {result: 'mock'},
+        {result: 'mock'},
+        {result: 'mock'},
+        {result: 'mock'},
+        {result: 'mock'},
+      ],
       [
         {result: 'mock'},
         {result: 'mock'},
@@ -184,10 +200,16 @@ test.serial('queryCommand: query (pagination)', async t => {
   await queryCommand({contract: '0x123', options: {}}, vorpal, context);
   t.is(query.callCount, 1);
   t.is(log.callCount, 1);
-  t.is(log.args[0][0].split('mock').length, MAX_ITEMS_PER_PAGE + 1);
+  t.is(log.args[0][0].split('mock').length, 5 + 1);
 
   await queryCommand({contract: '0x123', options: {}}, vorpal, context);
   t.is(query.callCount, 2);
-  t.is(log.callCount, 3);
-  t.is(log.args[2][0].split('mock').length, 4 + 1);
+  t.is(log.callCount, 2);
+  t.is(log.args[1][0].split('mock').length, MAX_ITEMS_PER_PAGE + 1);
+
+  await queryCommand({contract: '0x123', options: {}}, vorpal, context);
+  t.is(query.callCount, 3);
+  t.is(log.callCount, 4);
+  t.is(log.args[2][0].split('mock').length, MAX_ITEMS_PER_PAGE + 1);
+  t.is(log.args[3][0].split('mock').length, 4 + 1);
 });
