@@ -7,6 +7,9 @@ coverage
 cache
 testdata
 .*
+!.eslintignore
+!.eslintrc.json
+!.prettierrc.js
 !.gitignore
 !.gitlab-ci.yml
 cfox.db*
