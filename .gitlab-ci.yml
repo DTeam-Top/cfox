@@ -1,0 +1,45 @@
+default:
+  cache:
+    paths:
+      - ${npm_config_cache}
+  tags:
+    - docker
+
+build:
+  stage: build
+  image: node:16-alpine3.16
+  script:
+    - node -v
+    - npm -v
+    - npm ci -d
+    - npm run build
+  artifacts:
+    name: dist
+    paths:
+      - dist/
+    expire_in: 1 day
+
+test:
+  stage: test
+  image: node:16-alpine3.16
+  script: |
+    node -v
+    npm -v
+    npm ci -d
+    npm test -- --tap | npx -y tap-junit > junit.xml
+    coverage="$(sed -nr 's/.*coverage.*line-rate="([^"]*)".*/\1/p' coverage/cobertura-coverage.xml)"
+    coverage_percentage="$(printf "%.2f%%" $(echo "${coverage}*100" | bc))"
+    rm -fr coverage/tmp/
+    echo "Total Coverage: ${coverage_percentage}"
+  coverage: '/Total Coverage: (.*)/'
+  artifacts:
+    expose_as: 'test reports'
+    paths:
+      - coverage/
+    reports:
+      junit: junit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+    expire_in: 1 day
+    when: always

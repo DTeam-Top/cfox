@@ -1,0 +1,29 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "target": "ES2019",
+    "rootDir": ".",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "removeComments": true,
+    "newLine": "lf",
+    "noUnusedLocals": false,
+    "useDefineForClassFields": true,
+    "skipLibCheck": true,
+    "declaration": false,
+    "resolveJsonModule": true,
+    "module": "ESNext",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["es6"],
+    "types": ["reflect-metadata"]
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "resolveJsonModule": true
+    }
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
+}

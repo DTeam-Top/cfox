@@ -1,0 +1,116 @@
+{
+  "name": "cfox",
+  "version": "0.0.4",
+  "author": "dteam",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "description": "A shell for eth dapp developers.",
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/index.js",
+  "bin": {
+    "cfox": "dist/index.js"
+  },
+  "scripts": {
+    "start": "NODE_NO_WARNINGS=1 ncc run src/index.ts",
+    "build": "rimraf dist/ && ncc build src/index.ts -sm -e better-sqlite3 -e argon2",
+    "rebuild": "electron-rebuild -f -w better-sqlit3",
+    "waffle": "waffle",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "test": "c8 ava"
+  },
+  "dependencies": {
+    "argon2": "^0.29.1",
+    "better-sqlite3": "^7.6.2"
+  },
+  "devDependencies": {
+    "@dteam/st2": "^0.1.0",
+    "@openzeppelin/contracts": "^4.7.3",
+    "@types/better-sqlite3": "^7.6.2",
+    "@types/mime": "^3.0.1",
+    "@types/node": "^18.11.0",
+    "@types/qrcode-terminal": "^0.12.0",
+    "@types/sinon": "^10.0.13",
+    "@types/vorpal": "^1.12.2",
+    "@vercel/ncc": "^0.34.0",
+    "ava": "^4.3.3",
+    "axios": "^1.1.3",
+    "bignumber.js": "^9.1.0",
+    "c8": "^7.12.0",
+    "dayjs": "^1.11.5",
+    "dotenv": "^16.0.3",
+    "electron-rebuild": "^3.2.9",
+    "ethereum-waffle": "^3.4.4",
+    "ethers": "^5.7.1",
+    "files-from-path": "^0.2.6",
+    "gts": "^4.0.0",
+    "inversify": "^6.0.1",
+    "mime": "^3.0.0",
+    "nft.storage": "^7.0.0",
+    "ora": "^6.1.2",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.1.1",
+    "qrcode-terminal": "^0.12.0",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "sinon": "^14.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4",
+    "vorpal": "^1.12.0"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "timeout": "60s",
+    "failFast": true
+  },
+  "c8": {
+    "exclude": [
+      "test",
+      "src/types",
+      "src/constant.ts",
+      "src/index.ts"
+    ],
+    "reporter": [
+      "text",
+      "cobertura",
+      "html"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DTeam-Top/cfox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DTeam-Top/cfox/issues"
+  },
+  "homepage": "https://github.com/DTeam-Top/cfox/blob/main/README.md",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "tags": [
+    "typescript",
+    "tools",
+    "cli",
+    "shell",
+    "web3",
+    "ethereum"
+  ],
+  "keywords": [
+    "shell",
+    "ethereum",
+    "web3"
+  ]
+}

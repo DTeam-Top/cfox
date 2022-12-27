@@ -1,0 +1,13 @@
+dist
+node_modules
+[0-9]*/
+upload/
+reports
+coverage
+cache
+testdata
+.*
+!.gitignore
+!.gitlab-ci.yml
+cfox.db*
+*.tgz
