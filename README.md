@@ -96,6 +96,12 @@ cfox[0xBED16Cd70529D459f4A1A44D6Fe0c6B41364a00C||mainnet]=#keys -l
 | nft.storage |       |
 ```
 
+> Tip:
+>
+> You can always find the saved data in the home directory of cfox: "${USER_HOME}/.cfox".
+>
+> For example, it is "~/.cfox" on linux or macos.
+
 ## Commands
 
 Each command has a detailed description and you can always know it by running `help <command>` or `<command> --help`. For example:
@@ -116,6 +122,50 @@ The commands using the external apis:
 
 - `nft`, it will use morails as a fallback for those contracts not implementing `IERC721Enumerable`.
 - `upload`, it depends on nft.storage api to fulfill uploading datas to IPFS.
+
+> Tips:
+>
+> 1. All command line arguments will be splitted by space.
+> 1. When passing arguments to an event query, missing means null.
+
+Example #1: query all Transfer events in an range.
+
+```text
+cfox[0xBED16Cd70529D459f4A1A44D6Fe0c6B41364a00C||mumbai]=#query 0x0dc5a5d352e55dbb3d27c462de6b506517b86443
+Event Abi: event Transfer(address indexed from, address indexed to, uint256 value)
+event args (address,address):
+start block (top n blocks if it is negative.): 30037846
+end block: 30038856
+✔ try to query event Transfer().
+
+...
+```
+
+Example #2: query all Transfer(,to) events in an range.
+
+```text
+cfox[0xBED16Cd70529D459f4A1A44D6Fe0c6B41364a00C||mumbai]=# query 0x0dc5a5d352e55dbb3d27c462de6b506517b86443
+Event Abi: event Transfer(address indexed from, address indexed to, uint256 value)
+event args (address,address):  0x3B057FD4Ba20D2129b1DD5355CEDE95D4E990ab4
+start block (top n blocks if it is negative.): 30037846
+end block: 30038856
+✔ try to query event Transfer(,0x3B057FD4Ba20D2129b1DD5355CEDE95D4E990ab4).
+
+...
+```
+
+Example #3: query all Transfer(from) events in an range.
+
+```text
+cfox[0xBED16Cd70529D459f4A1A44D6Fe0c6B41364a00C||mumbai]=# query 0x0dc5a5d352e55dbb3d27c462de6b506517b86443
+Event Abi: event Transfer(address indexed from, address indexed to, uint256 value)
+event args (address,address): 0x0000000000000000000000000000000000000000
+start block (top n blocks if it is negative.): 30037846
+end block: 30038856
+✔ try to query event Transfer(0x0000000000000000000000000000000000000000).
+
+...
+```
 
 ## Development
 
