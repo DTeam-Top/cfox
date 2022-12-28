@@ -1,6 +1,10 @@
 /* eslint-disable node/no-unpublished-import */
 import test from 'ava';
+import {existsSync, mkdirSync, rmSync} from 'fs';
+import {tmpdir} from 'os';
+import path from 'path';
 import {
+  createPathIfNotExisting,
   isEmpty,
   isReserved,
   passwordHash,
@@ -62,4 +66,27 @@ test('should(true, message) must throws no error.', t => {
   t.notThrows(() => {
     should(true, 'there is an error.');
   });
+});
+
+test('createPathIfNotExisting should work.', t => {
+  const tmp = path.resolve(path.join(tmpdir(), 'tmp-test'));
+  t.false(existsSync(tmp));
+
+  createPathIfNotExisting(tmp);
+  t.true(existsSync(tmp));
+
+  rmSync(tmp, {recursive: true});
+});
+
+test('createPathIfNotExisting should not create a dir when it exists.', t => {
+  const tmp = path.resolve(path.join(tmpdir(), 'tmp1', 'child'));
+  mkdirSync(tmp, {recursive: true});
+
+  t.true(existsSync(tmp));
+
+  const tmpParent = path.resolve(path.join(tmpdir(), 'tmp1'));
+  createPathIfNotExisting(tmpParent);
+  t.true(existsSync(tmp));
+
+  rmSync(tmp, {force: true, recursive: true});
 });

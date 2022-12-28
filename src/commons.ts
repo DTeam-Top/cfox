@@ -1,6 +1,7 @@
 import {createTable} from '@dteam/st2/dist/stringTable';
 import * as argon2 from 'argon2';
 import BigNumber from 'bignumber.js';
+import {existsSync, mkdirSync} from 'fs';
 import Vorpal from 'vorpal';
 import {Context} from './cli/context';
 import {LOGO, RESERVED_CHAINS} from './constant';
@@ -169,4 +170,10 @@ export async function setGasPrice(vorpal: Vorpal, prices: string[]) {
       },
     ])
   ).price;
+}
+
+export function createPathIfNotExisting(path: string) {
+  if (!existsSync(path)) {
+    mkdirSync(path);
+  }
 }

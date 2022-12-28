@@ -24,9 +24,12 @@ import {sendCommand} from './cli/commands/send';
 import {singleTransferCommand} from './cli/commands/transfer';
 import {uploadCommand} from './cli/commands/upload';
 import {walletsCommand} from './cli/commands/wallets';
-import {showLogo} from './commons';
+import {createPathIfNotExisting, showLogo} from './commons';
+import {CFOX_HOME} from './constant';
 
 showLogo();
+
+createPathIfNotExisting(CFOX_HOME);
 
 const vorpal = new Vorpal();
 

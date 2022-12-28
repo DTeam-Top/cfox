@@ -1,4 +1,6 @@
 import dotenv from 'dotenv';
+import {homedir} from 'os';
+import path from 'path';
 
 const VERSION = '0.0.4';
 
@@ -18,7 +20,11 @@ export const KEYS = ['infura', 'morails', 'nft.storage'];
 
 export const MAX_ITEMS_PER_PAGE = 20;
 
-export const DB_NAME = process.env.NODE_ENV === 'test' ? ':memory:' : 'cfox.db';
+export const CFOX_HOME = path.resolve(path.join(homedir(), '.cfox'));
+export const DB_NAME =
+  process.env.NODE_ENV === 'test'
+    ? ':memory:'
+    : path.resolve(path.join(CFOX_HOME, 'cfox.db'));
 export const DB_VERSION = '0.0.2';
 export const RESERVED_NETWORKS = [
   {
