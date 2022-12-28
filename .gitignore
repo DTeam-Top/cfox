@@ -12,5 +12,7 @@ testdata
 !.prettierrc.js
 !.gitignore
 !.gitlab-ci.yml
+!.github
 cfox.db*
 *.tgz
+xunit.xml

@@ -85,7 +85,8 @@
     "reporter": [
       "text",
       "cobertura",
-      "html"
+      "html",
+      "json-summary"
     ]
   },
   "repository": {

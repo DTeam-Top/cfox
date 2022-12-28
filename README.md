@@ -1,6 +1,7 @@
 # CFOX: A shell for eth dapp developers
 
-[![pipeline status](https://git.shifudao.com/creative/cfox/badges/master/pipeline.svg)](https://git.shifudao.com/creative/cfox/-/commits/master) [![coverage report](https://git.shifudao.com/creative/cfox/badges/master/coverage.svg)](https://git.shifudao.com/creative/cfox/-/commits/master)
+![build](https://github.com/DTeam-Top/cfox/actions/workflows/ci.yml/badge.svg)
+![check-code-coverage](https://img.shields.io/badge/code--coverage-50%25-green)
 
 ```text
   ______  _______   ______   ___   ___

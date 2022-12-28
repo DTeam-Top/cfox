@@ -1,0 +1,59 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: |
+          node -v
+          npm -v
+          npm ci
+      - name: Build
+        run: |
+          npm run build
+      - name: Test
+        run: |
+          npm test -- --tap | npx -y tap-xunit --dontUseCommentsAsTestNames > xunit.xml
+      - name: Test Report
+        uses: phoenix-actions/test-reporting@v10
+        if: success() || failure()
+        with:
+          name: Test Report
+          path: xunit.xml
+          reporter: jest-junit
+      - name: Code Coverage Summary Report
+        uses: 5monkeys/cobertura-action@master
+        with:
+          path: coverage/cobertura-coverage.xml
+          minimum_coverage: 75
+      - name: Set code coverage commit status 📫
+        run: |
+          npx -y -p check-code-coverage set-gh-status
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update Badge of Code Coverage
+        if: github.event_name == 'push'
+        run: |
+          npx -y -p check-code-coverage update-badge
+      - name: Commit files
+        if: github.event_name == 'push'
+        run: |
+          if [[ `git status --porcelain` ]]; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m "docs: ✏️ [skip ci] update coverage badge" -a || true
+            git pull --rebase origin "${GITHUB_REF}"
+          fi
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        if: github.event_name == 'push'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
