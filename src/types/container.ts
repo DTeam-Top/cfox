@@ -3,10 +3,18 @@ import 'reflect-metadata';
 import {EthWallet} from '../eth/wallet';
 import {IpfsService} from '../storage/ipfs';
 import {Db} from '../storage/storage';
+import {ExplorerService} from '../web/explorer';
 import {WebService} from '../web/web';
-import {DbMock, EthWalletMock, IpfsServiceMock, WebServiceMock} from './mock';
+import {
+  DbMock,
+  EthWalletMock,
+  ExplorerMock,
+  IpfsServiceMock,
+  WebServiceMock,
+} from './mock';
 import {
   DbInterface,
+  ExplorerInterface,
   IpfsInterface,
   TYPES,
   WalletInterface,
@@ -32,6 +40,11 @@ if (process.env.NODE_ENV === 'test') {
     .bind<IpfsInterface>(TYPES.IpfsSevice)
     .to(IpfsServiceMock)
     .inSingletonScope();
+
+  container
+    .bind<ExplorerInterface>(TYPES.ExplorerInterface)
+    .to(ExplorerMock)
+    .inSingletonScope();
 } else {
   container.bind<DbInterface>(TYPES.DbService).to(Db).inSingletonScope();
 
@@ -49,6 +62,11 @@ if (process.env.NODE_ENV === 'test') {
     .bind<IpfsInterface>(TYPES.IpfsSevice)
     .to(IpfsService)
     .inSingletonScope();
+
+  container
+    .bind<ExplorerInterface>(TYPES.ExplorerInterface)
+    .to(ExplorerService)
+    .inSingletonScope();
 }
 
 export function walletService() {
@@ -65,4 +83,8 @@ export function webService() {
 
 export function ipfsService() {
   return container.get<IpfsInterface>(TYPES.IpfsSevice);
+}
+
+export function explorerService() {
+  return container.get<ExplorerInterface>(TYPES.ExplorerInterface);
 }

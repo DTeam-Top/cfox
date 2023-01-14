@@ -4,7 +4,7 @@ import Database from 'better-sqlite3';
 import {unlinkSync} from 'fs';
 import 'reflect-metadata';
 import {isEmpty} from '../../src/commons';
-import {RESERVED_NETWORKS} from '../../src/constant';
+import {KEYS, RESERVED_NETWORKS} from '../../src/constant';
 import {Db} from '../../src/storage/storage';
 import {Nft} from '../../src/types/types';
 
@@ -47,7 +47,7 @@ test.serial('backup should work', async t => {
 });
 
 test.serial('keys should work', async t => {
-  t.is(db.getKeys().length, 3);
+  t.is(db.getKeys().length, KEYS.length);
   t.is(db.getKey('infura'), null);
   t.is(db.getKey('morails'), null);
   t.is(db.getKey('nft.storage'), null);

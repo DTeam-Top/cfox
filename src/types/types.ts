@@ -8,6 +8,7 @@ export const TYPES = {
   WalletService: Symbol.for('WalletService'),
   WebService: Symbol.for('WebService'),
   IpfsSevice: Symbol.for('IpfsSevice'),
+  ExplorerInterface: Symbol.for('ExplorerInterface'),
 };
 
 export type Authenticated = {logined: boolean; password: string};
@@ -213,4 +214,18 @@ export interface IpfsInterface {
   uploadSingleFile(fileName: string): Promise<any>;
   uploadDirectory(pathName: string): Promise<any>;
   uploadMetadata(metadataPath: string): Promise<any>;
+}
+
+export type ContractDeploymentDetails = {
+  creator: string;
+  txHash: string;
+};
+
+export interface ExplorerInterface {
+  abi(chain: number, address: string): Promise<string>;
+  source(chain: number, address: string): Promise<string>;
+  deploymentDetails(
+    chain: number,
+    address: string
+  ): Promise<ContractDeploymentDetails>;
 }

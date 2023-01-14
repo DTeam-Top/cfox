@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import {homedir} from 'os';
 import path from 'path';
 
-const VERSION = '0.0.4';
+const VERSION = '0.0.5';
 
 dotenv.config();
 
@@ -16,7 +16,13 @@ export const LOGO = `
                              CFox ${VERSION}
 `;
 
-export const KEYS = ['infura', 'morails', 'nft.storage'];
+export const KEYS = [
+  'infura',
+  'morails',
+  'nft.storage',
+  'etherscan',
+  'polygonscan',
+];
 
 export const MAX_ITEMS_PER_PAGE = 20;
 
