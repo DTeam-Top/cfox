@@ -22,6 +22,8 @@ export const KEYS = [
   'nft.storage',
   'etherscan',
   'polygonscan',
+  'arbiscan',
+  'opcan',
 ];
 
 export const MAX_ITEMS_PER_PAGE = 20;

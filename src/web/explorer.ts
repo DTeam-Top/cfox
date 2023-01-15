@@ -50,6 +50,30 @@ const explorerConfig: {[key: number]: any} = {
     abi: abiSubPathOfEtherScanLike,
     source: sourceSubPathOfEtherScanLike,
   },
+  42161: {
+    keyName: 'arbiscan',
+    uriRoot: 'https://api.arbiscan.io/api',
+    abi: abiSubPathOfEtherScanLike,
+    source: sourceSubPathOfEtherScanLike,
+  },
+  421613: {
+    keyName: 'arbiscan',
+    uriRoot: 'https://api-goerli.arbiscan.io/api',
+    abi: abiSubPathOfEtherScanLike,
+    source: sourceSubPathOfEtherScanLike,
+  },
+  10: {
+    keyName: 'opscan',
+    uriRoot: 'https://api-optimistic.etherscan.io/api',
+    abi: abiSubPathOfEtherScanLike,
+    source: sourceSubPathOfEtherScanLike,
+  },
+  420: {
+    keyName: 'opcan',
+    uriRoot: 'https://api-goerli-optimism.etherscan.io/api',
+    abi: abiSubPathOfEtherScanLike,
+    source: sourceSubPathOfEtherScanLike,
+  },
 };
 
 async function apiUrl(chain: number, address: string, action: string) {
