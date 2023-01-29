@@ -10,14 +10,15 @@ export async function sourceCommand(
   context?: Context
 ) {
   const contract = args.contract;
+  const chain = context!.getCurrentNetwork().chain;
   const source = await (
     await dynamicImportOraPromise()
   )(
-    explorerService().source(context!.getCurrentNetwork().chain, contract),
+    explorerService().source(chain, contract),
     `Downloading the source code for ${contract}`
   );
 
-  const filename = contract;
+  const filename = `${chain}.${contract}.source`;
 
   if (source) {
     const normalizedSource = normalize(source);

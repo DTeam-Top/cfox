@@ -91,7 +91,7 @@ async function apiUrl(chain: number, address: string, action: string) {
     throw new Error(`Cannot find an api key for: ${details.keyName}.`);
   }
 
-  if ([1, 5, 137, 80001].includes(chain)) {
+  if ([1, 5, 137, 80001, 42161, 421613, 10, 420].includes(chain)) {
     return details[action](details.uriRoot, address, apiKey);
   }
 

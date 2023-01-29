@@ -10,14 +10,15 @@ export async function abiCommand(
   context?: Context
 ) {
   const contract = args.contract;
+  const chain = context!.getCurrentNetwork().chain;
   const abi = await (
     await dynamicImportOraPromise()
   )(
-    explorerService().abi(context!.getCurrentNetwork().chain, contract),
+    explorerService().abi(chain, contract),
     `Downloading the abi for ${contract}`
   );
 
-  const filename = `${contract}.abi`;
+  const filename = `${chain}.${contract}.abi`;
 
   if (abi) {
     fs.writeFileSync(filename, abi);
