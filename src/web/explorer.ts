@@ -69,7 +69,7 @@ const explorerConfig: {[key: number]: any} = {
     source: sourceSubPathOfEtherScanLike,
   },
   420: {
-    keyName: 'opcan',
+    keyName: 'opscan',
     uriRoot: 'https://api-goerli-optimism.etherscan.io/api',
     abi: abiSubPathOfEtherScanLike,
     source: sourceSubPathOfEtherScanLike,

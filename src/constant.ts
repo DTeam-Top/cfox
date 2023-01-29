@@ -23,7 +23,7 @@ export const KEYS = [
   'etherscan',
   'polygonscan',
   'arbiscan',
-  'opcan',
+  'opscan',
 ];
 
 export const MAX_ITEMS_PER_PAGE = 20;
