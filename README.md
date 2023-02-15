@@ -12,7 +12,7 @@
 |  |     |   __|  |  |  |  |   >   <
 |  `----.|  |     |  `--'  |  /  .  \
  \______||__|      \______/  /__/ \__\
-                             CFox 0.0.5
+                             CFox 0.0.6
 ```
 
 cfox is a shell for eth dapp developers and provided, current supported commands includes:
@@ -60,7 +60,7 @@ cfox will ask the user to set the password on its first run:
 |  |     |   __|  |  |  |  |   >   <
 |  `----.|  |     |  `--'  |  /  .  \
  \______||__|      \______/  /__/ \__\
-                             CFox 0.0.5
+                             CFox 0.0.6
 
 cfox=#
 This is your first time to run cfox, please do some configurations first.

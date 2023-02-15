@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import {homedir} from 'os';
 import path from 'path';
 
-const VERSION = '0.0.5';
+const VERSION = '0.0.6';
 
 dotenv.config();
 
