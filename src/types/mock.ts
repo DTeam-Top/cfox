@@ -2,6 +2,7 @@ import {injectable} from 'inversify';
 import sinon from 'sinon';
 import {
   DbInterface,
+  ExplorerInterface,
   IpfsInterface,
   WalletInterface,
   WebInterface,
@@ -79,4 +80,11 @@ export class EthWalletMock implements WalletInterface {
   cancelTxByNonce = sinon.stub();
   cancelTxByHash = sinon.stub();
   pushTx = sinon.stub();
+}
+
+@injectable()
+export class ExplorerMock implements ExplorerInterface {
+  abi = sinon.stub();
+  source = sinon.stub();
+  deploymentDetails = sinon.stub();
 }

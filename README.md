@@ -1,7 +1,7 @@
 # CFOX: A shell for eth dapp developers
 
 ![build](https://github.com/DTeam-Top/cfox/actions/workflows/ci.yml/badge.svg)
-![check-code-coverage](https://img.shields.io/badge/code--coverage-89.21%25-green)
+![check-code-coverage](https://img.shields.io/badge/code--coverage-87.92%25-green)
 [![npm](https://img.shields.io/npm/dt/cfox)](https://www.npmjs.com/package/cfox)
 [![npm (scoped)](https://img.shields.io/npm/v/cfox)](https://www.npmjs.com/package/cfox)
 
@@ -12,7 +12,7 @@
 |  |     |   __|  |  |  |  |   >   <
 |  `----.|  |     |  `--'  |  /  .  \
  \______||__|      \______/  /__/ \__\
-                             CFox 0.0.4
+                             CFox 0.0.5
 ```
 
 cfox is a shell for eth dapp developers and provided, current supported commands includes:
@@ -60,7 +60,7 @@ cfox will ask the user to set the password on its first run:
 |  |     |   __|  |  |  |  |   >   <
 |  `----.|  |     |  `--'  |  /  .  \
  \______||__|      \______/  /__/ \__\
-                             CFox 0.0.4
+                             CFox 0.0.5
 
 cfox=#
 This is your first time to run cfox, please do some configurations first.

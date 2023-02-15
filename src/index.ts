@@ -2,12 +2,14 @@
 
 import Vorpal from 'vorpal';
 import {startCLi} from './cli/cli';
+import {abiCommand} from './cli/commands/abi';
 import {addCommand} from './cli/commands/add';
 import {balanceCommand} from './cli/commands/balance';
 import {changeCommand} from './cli/commands/change';
 import {ensCommand} from './cli/commands/ens';
 import {execCommand} from './cli/commands/exec';
 import {exportCommand} from './cli/commands/export';
+import {firstCommand} from './cli/commands/first';
 import {gpCommand} from './cli/commands/gp';
 import {initCommand} from './cli/commands/init';
 import {keysCommand} from './cli/commands/keys';
@@ -21,6 +23,7 @@ import {qrCommand} from './cli/commands/qr';
 import {queryCommand} from './cli/commands/query';
 import {removeCommand} from './cli/commands/remove';
 import {sendCommand} from './cli/commands/send';
+import {sourceCommand} from './cli/commands/source';
 import {singleTransferCommand} from './cli/commands/transfer';
 import {uploadCommand} from './cli/commands/upload';
 import {walletsCommand} from './cli/commands/wallets';
@@ -47,6 +50,12 @@ startCLi(
       name: '\\e',
       description: 'Export all datas in db.',
       handler: exportCommand,
+    },
+    {
+      name: '\\s <contract>',
+      description: 'Fetch the source code for a contract.',
+      types: {string: ['_']},
+      handler: sourceCommand,
     },
     {
       name: '\\l',
@@ -289,6 +298,18 @@ startCLi(
       ],
       types: {string: ['_']},
       handler: keysCommand,
+    },
+    {
+      name: 'abi <contract>',
+      description: 'Fetch the abi for a contract.',
+      types: {string: ['_']},
+      handler: abiCommand,
+    },
+    {
+      name: 'first <contract>',
+      description: 'Get the creation transaction of a contract.',
+      types: {string: ['_']},
+      handler: firstCommand,
     },
   ]
 );

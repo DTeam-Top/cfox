@@ -1,6 +1,6 @@
 {
   "name": "cfox",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "dteam",
   "license": "MIT",
   "readmeFilename": "README.md",
@@ -48,7 +48,7 @@
     "dotenv": "^16.0.3",
     "electron-rebuild": "^3.2.9",
     "ethereum-waffle": "^3.4.4",
-    "ethers": "^5.7.1",
+    "ethers": "5.7.2",
     "files-from-path": "^0.2.6",
     "gts": "^4.0.0",
     "inversify": "^6.0.1",
