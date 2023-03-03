@@ -10,5 +10,5 @@ export async function exportCommand(
 ) {
   await (
     await dynamicImportOraPromise()
-  )(dbService().backup(), 'try to export all datas.');
+  )(dbService().backup(args.options.o || ''), 'try to export all datas.');
 }

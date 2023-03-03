@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import {injectable} from 'inversify';
-import {should} from '../commons';
+import path from 'path';
+import {createPathIfNotExisting, should} from '../commons';
 import {DB_NAME, KEYS, RESERVED_NETWORKS} from '../constant';
 import {
   Account,
@@ -28,8 +29,12 @@ export class Db implements DbInterface {
     this.closeDbWhenExit();
   }
 
-  async backup() {
-    const name = `cfox-${Date.now()}.db`;
+  async backup(targetPath: string) {
+    if (targetPath) {
+      createPathIfNotExisting(targetPath);
+    }
+
+    const name = path.join(targetPath, `cfox-${Date.now()}.db`);
     await this.sqlite.backup(name);
     return name;
   }

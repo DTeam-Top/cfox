@@ -49,12 +49,25 @@ startCLi(
     {
       name: '\\e',
       description: 'Export all datas in db.',
+      options: [
+        {
+          name: '-o <path>',
+          description: 'output path, current directory by default.',
+        },
+      ],
+      types: {string: ['o']},
       handler: exportCommand,
     },
     {
       name: '\\s <contract>',
       description: 'Fetch the source code for a contract.',
-      types: {string: ['_']},
+      options: [
+        {
+          name: '-o <path>',
+          description: 'output path, current directory by default.',
+        },
+      ],
+      types: {string: ['o', '_']},
       handler: sourceCommand,
     },
     {
@@ -302,7 +315,13 @@ startCLi(
     {
       name: 'abi <contract>',
       description: 'Fetch the abi for a contract.',
-      types: {string: ['_']},
+      options: [
+        {
+          name: '-o <path>',
+          description: 'output path, current directory by default.',
+        },
+      ],
+      types: {string: ['o', '_']},
       handler: abiCommand,
     },
     {

@@ -38,7 +38,7 @@ test.serial('settings should work', async t => {
 });
 
 test.serial('backup should work', async t => {
-  const name = await db.backup();
+  const name = await db.backup('');
   const sqlite = new Database(name);
   const result = sqlite.prepare('select count(*) counts from networks').get();
   t.true(result.counts > 0);

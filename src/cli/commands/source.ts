@@ -1,6 +1,11 @@
 import fs from 'fs';
+import path from 'path';
 import Vorpal, {Args} from 'vorpal';
-import {dynamicImportOraPromise, error} from '../../commons';
+import {
+  createPathIfNotExisting,
+  dynamicImportOraPromise,
+  error,
+} from '../../commons';
 import {explorerService} from '../../types/container';
 import {Context} from '../context';
 
@@ -18,25 +23,32 @@ export async function sourceCommand(
     `Downloading the source code for ${contract}`
   );
 
-  const filename = `${chain}.${contract}.source`;
-
-  if (source) {
-    const normalizedSource = normalize(source);
-    if (normalizedSource.startsWith('{') && normalizedSource.endsWith('}')) {
-      fs.writeFileSync(
-        filename,
-        Object.entries(JSON.parse(normalizedSource).sources)
-          .map(item => `// File: ${item[0]}\n\n${(item[1] as any).content}\n`)
-          .join('\n')
-      );
-    } else {
-      fs.writeFileSync(filename, normalizedSource);
-    }
-  } else {
+  if (!source) {
     error(
       vorpal,
       `Cannot find the source code for ${contract}, please:\n1. ensure it is verified.\n2. check the contract address is correct.`
     );
+  }
+
+  if (args.options.o) {
+    createPathIfNotExisting(args.options.o);
+  }
+
+  const filename = path.join(
+    args.options.o || '',
+    `${chain}.${contract}.source`
+  );
+
+  const normalizedSource = normalize(source);
+  if (normalizedSource.startsWith('{') && normalizedSource.endsWith('}')) {
+    fs.writeFileSync(
+      filename,
+      Object.entries(JSON.parse(normalizedSource).sources)
+        .map(item => `// File: ${item[0]}\n\n${(item[1] as any).content}\n`)
+        .join('\n')
+    );
+  } else {
+    fs.writeFileSync(filename, normalizedSource);
   }
 }
 

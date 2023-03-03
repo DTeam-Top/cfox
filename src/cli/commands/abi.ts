@@ -1,6 +1,11 @@
 import fs from 'fs';
+import path from 'path';
 import Vorpal, {Args} from 'vorpal';
-import {dynamicImportOraPromise, error} from '../../commons';
+import {
+  createPathIfNotExisting,
+  dynamicImportOraPromise,
+  error,
+} from '../../commons';
 import {explorerService} from '../../types/container';
 import {Context} from '../context';
 
@@ -18,14 +23,17 @@ export async function abiCommand(
     `Downloading the abi for ${contract}`
   );
 
-  const filename = `${chain}.${contract}.abi`;
-
-  if (abi) {
-    fs.writeFileSync(filename, abi);
-  } else {
+  if (!abi) {
     error(
       vorpal,
       `Cannot find the abi code for ${contract}, please:\n1. ensure it is verified.\n2. check the contract address is correct.`
     );
   }
+
+  if (args.options.o) {
+    createPathIfNotExisting(args.options.o);
+  }
+
+  const filename = path.join(args.options.o || '', `${chain}.${contract}.abi`);
+  fs.writeFileSync(filename, abi);
 }

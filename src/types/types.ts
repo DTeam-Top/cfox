@@ -78,7 +78,7 @@ export interface Storage {
 
 export interface DbInterface {
   isNotConfigured(): boolean;
-  backup(): Promise<string>;
+  backup(targetPath: string): Promise<string>;
   getCurrent(): {network: Network; account: Account | null};
   saveCurrent(current: Current): void;
   allNetworks(): Network[];
