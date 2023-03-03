@@ -1,5 +1,5 @@
 import {injectable} from 'inversify';
-import {dbService, webService} from '../types/container';
+import {cacheService, dbService, webService} from '../types/container';
 import {ContractDeploymentDetails, ExplorerInterface} from '../types/types';
 
 const abiSubPathOfEtherScanLike = (
@@ -101,13 +101,21 @@ async function apiUrl(chain: number, address: string, action: string) {
 @injectable()
 export class ExplorerService implements ExplorerInterface {
   async abi(chain: number, address: string): Promise<string> {
-    const result = await this.getData(chain, address, 'abi');
-    return result;
+    return this.getOrFetchAndCache(
+      this.cacheKey(chain, address, 'abi'),
+      async () => {
+        return await this.getData(chain, address, 'abi');
+      }
+    );
   }
 
   async source(chain: number, address: string): Promise<string> {
-    const result = await this.getData(chain, address, 'source');
-    return result[0].SourceCode;
+    return this.getOrFetchAndCache(
+      this.cacheKey(chain, address, 'source'),
+      async () => {
+        return (await this.getData(chain, address, 'source'))[0].SourceCode;
+      }
+    );
   }
 
   async deploymentDetails(
@@ -130,5 +138,23 @@ export class ExplorerService implements ExplorerInterface {
     }
 
     return response.result;
+  }
+
+  private cacheKey(chain: number, address: string, action: string) {
+    return `${action}/${chain}.${address}`;
+  }
+
+  private async getOrFetchAndCache(
+    key: string,
+    fetchor: () => Promise<string>
+  ): Promise<string> {
+    let result = cacheService().get(key);
+    if (result) {
+      return result;
+    }
+
+    result = await fetchor();
+    cacheService().put(key, result);
+    return result;
   }
 }

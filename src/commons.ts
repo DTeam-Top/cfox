@@ -174,6 +174,6 @@ export async function setGasPrice(vorpal: Vorpal, prices: string[]) {
 
 export function createPathIfNotExisting(path: string) {
   if (!existsSync(path)) {
-    mkdirSync(path);
+    mkdirSync(path, {recursive: true});
   }
 }

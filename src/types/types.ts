@@ -9,6 +9,7 @@ export const TYPES = {
   WebService: Symbol.for('WebService'),
   IpfsSevice: Symbol.for('IpfsSevice'),
   ExplorerInterface: Symbol.for('ExplorerInterface'),
+  Cache: Symbol.for('Cache'),
 };
 
 export type Authenticated = {logined: boolean; password: string};
@@ -228,4 +229,9 @@ export interface ExplorerInterface {
     chain: number,
     address: string
   ): Promise<ContractDeploymentDetails>;
+}
+
+export interface Cache {
+  get(key: string): string | null;
+  put(key: string, value: string): void;
 }

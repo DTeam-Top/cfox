@@ -1,6 +1,6 @@
 /* eslint-disable node/no-unpublished-import */
 import test from 'ava';
-import {existsSync, mkdirSync, rmSync} from 'fs';
+import {existsSync, rmSync} from 'fs';
 import {tmpdir} from 'os';
 import path from 'path';
 import {
@@ -80,7 +80,7 @@ test('createPathIfNotExisting should work.', t => {
 
 test('createPathIfNotExisting should not create a dir when it exists.', t => {
   const tmp = path.resolve(path.join(tmpdir(), 'tmp1', 'child'));
-  mkdirSync(tmp, {recursive: true});
+  createPathIfNotExisting(tmp);
 
   t.true(existsSync(tmp));
 

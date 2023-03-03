@@ -101,3 +101,8 @@ export const RESERVED_NETWORKS = [
   },
 ];
 export const RESERVED_CHAINS = RESERVED_NETWORKS.map(network => network.chain);
+
+export const CACHE_HOME =
+  process.env.NODE_ENV === 'test'
+    ? ':memory:'
+    : path.resolve(path.join(CFOX_HOME, '.cache'));

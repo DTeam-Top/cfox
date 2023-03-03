@@ -19,9 +19,10 @@ export class Db implements DbInterface {
   private readonly ACCOUNTS_TABLE = 'accounts';
   private readonly NETWORKS_TABLE = 'networks';
   private readonly CURRENT_TABLE = 'current';
-  private sqlite!: ReturnType<typeof Database>;
+  private sqlite: ReturnType<typeof Database>;
 
   constructor() {
+    this.sqlite = new Database(DB_NAME);
     this.initDb();
     this.migrate();
     this.closeDbWhenExit();
@@ -284,7 +285,6 @@ export class Db implements DbInterface {
   migrate() {}
 
   initDb() {
-    this.sqlite = new Database(DB_NAME);
     this.createTablesIfNotExist();
     this.initNetworksWithPredefinedValues();
     this.initKeys();

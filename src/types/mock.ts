@@ -1,6 +1,7 @@
 import {injectable} from 'inversify';
 import sinon from 'sinon';
 import {
+  Cache,
   DbInterface,
   ExplorerInterface,
   IpfsInterface,
@@ -87,4 +88,10 @@ export class ExplorerMock implements ExplorerInterface {
   abi = sinon.stub();
   source = sinon.stub();
   deploymentDetails = sinon.stub();
+}
+
+@injectable()
+export class CacheMock implements Cache {
+  get = sinon.stub();
+  put = sinon.stub();
 }
