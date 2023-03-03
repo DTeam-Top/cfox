@@ -1,7 +1,7 @@
 # CFOX: A shell for eth dapp developers
 
 ![build](https://github.com/DTeam-Top/cfox/actions/workflows/ci.yml/badge.svg)
-![check-code-coverage](https://img.shields.io/badge/code--coverage-87.92%25-green)
+![check-code-coverage](https://img.shields.io/badge/code--coverage-87.43%25-green)
 [![npm](https://img.shields.io/npm/dt/cfox)](https://www.npmjs.com/package/cfox)
 [![npm (scoped)](https://img.shields.io/npm/v/cfox)](https://www.npmjs.com/package/cfox)
 
