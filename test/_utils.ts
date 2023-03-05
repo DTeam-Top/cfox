@@ -13,16 +13,19 @@ export function createOrSetStub(expected: any[], host?: SinonStub) {
 
 export function mockVoral(prompt?: any) {
   const log = sinon.stub();
-  const red = sinon.stub();
-  const green = sinon.stub();
+  const yellow = sinon.stub().returnsArg(0);
+  const red = sinon.stub().returnsArg(0);
+  const green = sinon.stub().returnsArg(0);
   const blue = sinon.stub().returnsArg(0);
+  const delimiter = sinon.stub();
   const vorpal = {
     log,
-    chalk: {red, green, blue},
+    chalk: {yellow, red, green, blue},
     activeCommand: {prompt},
+    delimiter,
   } as unknown as Vorpal;
 
-  return {log, red, green, vorpal};
+  return {log, red, green, delimiter, vorpal};
 }
 
 export const testNetwork = {

@@ -5,24 +5,18 @@ import {dbService, walletService} from '../types/container';
 import {Account, Network} from '../types/types';
 
 export class Context {
-  private vorpal: Vorpal;
-  private currentNetwork: Network;
   private currentAccount: Account | null = null;
   private provider: ethers.providers.InfuraProvider;
   private wallet: Wallet | null = null;
-  private password: string;
 
   constructor(
-    vorpal: Vorpal,
-    password: string,
-    network: Network,
+    private vorpal: Vorpal,
+    private password: string,
+    private currentNetwork: Network,
     account: Account | null
   ) {
-    this.currentNetwork = network;
-    this.vorpal = vorpal;
-    this.password = password;
     this.provider = new ethers.providers.InfuraProvider(
-      Number(network.chain),
+      Number(currentNetwork.chain),
       dbService().getKey('infura')
     );
 
