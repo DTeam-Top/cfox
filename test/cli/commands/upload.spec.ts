@@ -4,7 +4,7 @@ import {uploadCommand} from '../../../src/cli/commands/upload';
 import {ipfsService} from '../../../src/types/container';
 import {mockVoral} from '../../_utils';
 
-test.serial('uploadCommand: upload', async t => {
+test('uploadCommand: upload', async t => {
   const {vorpal} = mockVoral();
   const uploadSingleFile = ipfsService().uploadSingleFile as SinonStub;
   uploadSingleFile.returns({});

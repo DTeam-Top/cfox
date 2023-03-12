@@ -62,6 +62,17 @@ export class WebService implements WebInterface {
     }
   }
 
+  async signature(type: 'function' | 'event', id: string) {
+    const result = await this.get(
+      `https://www.4byte.directory/api/v1/${
+        type === 'event' ? 'event-' : ''
+      }signatures/?hex_signature=${id}`
+    );
+    return result.results
+      .map((result: any) => result.text_signature)
+      .join('\n');
+  }
+
   private async safeGet(
     url: string,
     config = {},

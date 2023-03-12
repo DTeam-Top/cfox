@@ -5,7 +5,7 @@ import {Context} from '../../../src/cli/context';
 import {walletService} from '../../../src/types/container';
 import {createOrSetStub, mockVoral} from '../../_utils';
 
-test.serial('nonceCommand: nonce', async t => {
+test('nonceCommand: nonce', async t => {
   const {vorpal} = mockVoral();
   const provider = sinon.stub();
   const wallet = {address: '0x123', provider};

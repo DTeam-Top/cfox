@@ -6,7 +6,7 @@ import {Context} from '../../../src/cli/context';
 import {dbService, walletService} from '../../../src/types/container';
 import {createOrSetStub, mockVoral, testNft721} from '../../_utils';
 
-test.serial('singleTransferCommand: transfer', async t => {
+test('singleTransferCommand: transfer', async t => {
   const prompt = createOrSetStub([
     {confirm: false},
     {confirm: true},

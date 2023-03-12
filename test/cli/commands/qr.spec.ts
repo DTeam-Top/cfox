@@ -3,7 +3,7 @@ import {qrCommand} from '../../../src/cli/commands/qr';
 import {Context} from '../../../src/cli/context';
 import {createOrSetStub, mockVoral} from '../../_utils';
 
-test.serial('qrCommand: "\\qr [account]"', async t => {
+test('qrCommand: "\\qr [account]"', async t => {
   const {log, vorpal} = mockVoral();
   const getCurrentAccount = createOrSetStub([{address: '0x123'}]);
   const context = {

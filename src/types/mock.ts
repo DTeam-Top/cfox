@@ -19,6 +19,7 @@ export class IpfsServiceMock implements IpfsInterface {
 @injectable()
 export class WebServiceMock implements WebInterface {
   get = sinon.stub();
+  signature = sinon.stub();
   tokens = sinon.stub();
 }
 

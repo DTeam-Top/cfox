@@ -7,7 +7,7 @@ import {Context} from '../../../src/cli/context';
 import {explorerService} from '../../../src/types/container';
 import {createOrSetStub, mockVoral} from '../../_utils';
 
-test.serial('firstCommand: first', async t => {
+test('firstCommand: first', async t => {
   const {log, vorpal} = mockVoral();
   const wallet = {
     provider: {

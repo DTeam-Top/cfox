@@ -10,7 +10,7 @@ import {
 } from '../../../src/types/container';
 import {createOrSetStub, mockVoral, testNft721} from '../../_utils';
 
-test.serial('nftCommand: nft', async t => {
+test('nftCommand: nft', async t => {
   const {vorpal} = mockVoral();
   const wallet = {address: '0x123'};
   createOrSetStub([null, testNft721], dbService().findNft as SinonStub);

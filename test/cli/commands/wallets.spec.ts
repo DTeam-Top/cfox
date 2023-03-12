@@ -4,7 +4,7 @@ import {walletsCommand} from '../../../src/cli/commands/wallets';
 import {walletService} from '../../../src/types/container';
 import {mockVoral} from '../../_utils';
 
-test.serial('walletsCommand: wallets', async t => {
+test('walletsCommand: wallets', async t => {
   const {vorpal} = mockVoral();
   const generateRandomAccounts = walletService()
     .generateRandomAccounts as SinonStub;

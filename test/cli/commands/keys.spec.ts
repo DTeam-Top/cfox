@@ -1,13 +1,9 @@
 /* eslint-disable no-empty */
 import test from 'ava';
-import sinon, {SinonStub} from 'sinon';
+import {SinonStub} from 'sinon';
 import {keysCommand} from '../../../src/cli/commands/keys';
 import {dbService} from '../../../src/types/container';
 import {mockVoral} from '../../_utils';
-
-test.beforeEach(() => {
-  sinon.reset();
-});
 
 test('keysCommand: keys -l', async t => {
   const {vorpal} = mockVoral();

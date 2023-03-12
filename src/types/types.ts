@@ -203,6 +203,7 @@ export type Command = {
 
 export interface WebInterface {
   get(url: string, config?: AxiosRequestConfig): Promise<any>;
+  signature(type: 'function' | 'event', id: string): Promise<string>;
   tokens(
     address: string,
     contrat: string,

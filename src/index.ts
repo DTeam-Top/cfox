@@ -11,6 +11,7 @@ import {execCommand} from './cli/commands/exec';
 import {exportCommand} from './cli/commands/export';
 import {firstCommand} from './cli/commands/first';
 import {gpCommand} from './cli/commands/gp';
+import {idCommand} from './cli/commands/id';
 import {initCommand} from './cli/commands/init';
 import {keysCommand} from './cli/commands/keys';
 import {listCommand} from './cli/commands/list';
@@ -329,6 +330,22 @@ startCLi(
       description: 'Get the creation transaction of a contract.',
       types: {string: ['_']},
       handler: firstCommand,
+    },
+    {
+      name: 'id',
+      description: 'Return signature by id.',
+      options: [
+        {
+          name: '-f <id>',
+          description: 'function id',
+        },
+        {
+          name: '-e <id>',
+          description: 'event id',
+        },
+      ],
+      types: {string: ['f', 'e']},
+      handler: idCommand,
     },
   ]
 );

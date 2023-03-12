@@ -5,7 +5,7 @@ import {Context} from '../../../src/cli/context';
 import {walletService} from '../../../src/types/container';
 import {createOrSetStub, mockVoral} from '../../_utils';
 
-test.serial('peekCommand: peek', async t => {
+test('peekCommand: peek', async t => {
   const {vorpal} = mockVoral();
   const wallet = {};
   const getWallet = createOrSetStub([null, wallet, wallet, wallet]);
