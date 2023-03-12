@@ -6,11 +6,7 @@ import {Context} from '../../../src/cli/context';
 import {walletService} from '../../../src/types/container';
 import {createOrSetStub, mockVoral} from '../../_utils';
 
-test.beforeEach(() => {
-  sinon.reset();
-});
-
-test.serial('ensCommand: ens', async t => {
+test('ensCommand: ens', async t => {
   const {vorpal} = mockVoral();
   const provider = sinon.stub();
   const getWallet = createOrSetStub([null, {provider}, {provider}]);
