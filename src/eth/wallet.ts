@@ -4,16 +4,20 @@ import {FormatTypes, Interface, parseEther} from 'ethers/lib/utils';
 import {injectable} from 'inversify';
 import {should} from '../commons';
 import {ERC20_ABI, ERC721_ABI} from '../types/abi';
-import {webService} from '../types/container';
+import {explorerService, webService} from '../types/container';
 import {
   Account,
+  DecodedTx,
   GasPriceDetails,
   Nft,
   Token,
   TxDetails,
   WalletInterface,
 } from '../types/types';
-import {ethersOf, parseUnits, unitsOf} from './ethUtils';
+import {ethersOf, parseUnits, unifyAddresses, unitsOf} from './ethUtils';
+
+const empty =
+  '0x0000000000000000000000000000000000000000000000000000000000000000';
 
 @injectable()
 export class EthWallet implements WalletInterface {
@@ -516,6 +520,83 @@ export class EthWallet implements WalletInterface {
     return tx.hash;
   }
 
+  async slot(
+    provider: ethers.providers.Provider,
+    address: string,
+    pos: string
+  ) {
+    return await provider.getStorageAt(
+      address,
+      pos.startsWith('0x') ? pos : `0x${pos}`
+    );
+  }
+
+  async decodeTx(
+    provider: ethers.providers.Provider,
+    txHash: string
+  ): Promise<any> {
+    const [txResponse, txReceipt] = await Promise.all([
+      provider.getTransaction(txHash),
+      provider.getTransactionReceipt(txHash),
+    ]);
+
+    if (!txResponse) {
+      throw new Error('Transaction not found');
+    }
+
+    const result: DecodedTx = {
+      parties: {
+        from: txResponse.from,
+        to: txReceipt?.to,
+      },
+      value: ethersOf(txResponse.value),
+      minted: !!txReceipt,
+    };
+
+    if (!txReceipt || txResponse.data === '0x') return result;
+
+    const address = txReceipt.to;
+    result.parties.to = address;
+
+    const ifaces = {} as any;
+    const implementation =
+      (await this.implementation(provider, address)) || address;
+    const abi = await explorerService().abi(txResponse.chainId, implementation);
+
+    ifaces[address] = new ethers.utils.Interface(abi);
+
+    const method = ifaces[address].parseTransaction({
+      data: txResponse.data,
+      value: txResponse.value,
+    });
+    result.method = {
+      signature: method.signature,
+      params: method.args,
+    };
+
+    if (!txReceipt.logs) return result;
+
+    result.events = [];
+    for (const log of txReceipt.logs) {
+      if (!ifaces[log.address]) {
+        const implementation =
+          (await this.implementation(provider, log.address)) || log.address;
+        const abi = await explorerService().abi(
+          txResponse.chainId,
+          implementation
+        );
+        ifaces[log.address] = new ethers.utils.Interface(abi);
+      }
+      const event = ifaces[log.address].parseLog({
+        data: log.data,
+        topics: log.topics,
+      });
+      result.events.push({signature: event.signature, params: event.args});
+    }
+
+    return result;
+  }
+
   private erc721(address: string, wallet: Wallet) {
     return new Contract(address, ERC721_ABI, wallet);
   }
@@ -650,6 +731,33 @@ export class EthWallet implements WalletInterface {
     should(!txReceipt, `Transaction ${txHash} minted.`);
 
     return tx;
+  }
+
+  private async implementation(
+    provider: ethers.providers.Provider,
+    proxyAddress: string
+  ) {
+    // try logic contracts first
+    let value = await provider.getStorageAt(
+      proxyAddress,
+      '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc'
+    );
+
+    if (value !== empty) {
+      return unifyAddresses(`0x${value.slice(26)}`);
+    }
+
+    // try beacon contract later
+    value = await provider.getStorageAt(
+      proxyAddress,
+      '0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50'
+    );
+
+    if (value !== empty) {
+      return unifyAddresses(`0x${value.slice(26)}`);
+    }
+
+    return '';
   }
 }
 

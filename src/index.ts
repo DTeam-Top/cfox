@@ -6,6 +6,7 @@ import {abiCommand} from './cli/commands/abi';
 import {addCommand} from './cli/commands/add';
 import {balanceCommand} from './cli/commands/balance';
 import {changeCommand} from './cli/commands/change';
+import {decodeCommand} from './cli/commands/decode';
 import {ensCommand} from './cli/commands/ens';
 import {execCommand} from './cli/commands/exec';
 import {exportCommand} from './cli/commands/export';
@@ -24,6 +25,7 @@ import {qrCommand} from './cli/commands/qr';
 import {queryCommand} from './cli/commands/query';
 import {removeCommand} from './cli/commands/remove';
 import {sendCommand} from './cli/commands/send';
+import {slotCommand} from './cli/commands/slot';
 import {sourceCommand} from './cli/commands/source';
 import {singleTransferCommand} from './cli/commands/transfer';
 import {uploadCommand} from './cli/commands/upload';
@@ -346,6 +348,18 @@ startCLi(
       ],
       types: {string: ['f', 'e']},
       handler: idCommand,
+    },
+    {
+      name: 'slot <contract> <pos>',
+      description: 'Get the Byte32 value of the position of the contract.',
+      types: {string: ['_']},
+      handler: slotCommand,
+    },
+    {
+      name: 'decode <txHash>',
+      description: 'Decode a transaction by a tx hash.',
+      types: {string: ['_']},
+      handler: decodeCommand,
     },
   ]
 );

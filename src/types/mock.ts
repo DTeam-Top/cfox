@@ -82,6 +82,8 @@ export class EthWalletMock implements WalletInterface {
   cancelTxByNonce = sinon.stub();
   cancelTxByHash = sinon.stub();
   pushTx = sinon.stub();
+  slot = sinon.stub();
+  decodeTx = sinon.stub();
 }
 
 @injectable()

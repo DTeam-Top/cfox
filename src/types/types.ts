@@ -1,5 +1,6 @@
 import {AxiosRequestConfig} from 'axios';
 import {ethers, Wallet} from 'ethers';
+import {Result} from 'ethers/lib/utils';
 import Vorpal, {Args} from 'vorpal';
 import {Context} from '../cli/context';
 
@@ -61,6 +62,14 @@ export type TxDetails = {
     description: string;
     resultInEth: string;
   }>;
+};
+
+export type DecodedTx = {
+  parties: {from: string; to?: string};
+  value: string;
+  minted: boolean;
+  method?: {signature: string; params: Result};
+  events?: Array<{signature: string; params: Result}>;
 };
 
 export type GasPriceDetails = {
@@ -186,6 +195,15 @@ export interface WalletInterface {
   cancelTxByNonce(wallet: Wallet, nonce: number): Promise<string>;
   cancelTxByHash(wallet: Wallet, txHash: string): Promise<string>;
   pushTx(wallet: Wallet, txHash: string): Promise<string>;
+  slot(
+    provider: ethers.providers.Provider,
+    address: string,
+    pos: string
+  ): Promise<string>;
+  decodeTx(
+    provider: ethers.providers.Provider,
+    txHash: string
+  ): Promise<DecodedTx>;
 }
 
 export type StringPair = {
