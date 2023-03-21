@@ -523,12 +523,13 @@ export class EthWallet implements WalletInterface {
   async slot(
     provider: ethers.providers.Provider,
     address: string,
-    pos: string
+    pos?: string
   ) {
-    return await provider.getStorageAt(
-      address,
-      pos.startsWith('0x') ? pos : `0x${pos}`
-    );
+    if (pos) {
+      return await provider.getStorageAt(address, BigInt(pos));
+    } else {
+      return await this.implementation(provider, address);
+    }
   }
 
   async decodeTx(

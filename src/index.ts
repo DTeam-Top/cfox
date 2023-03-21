@@ -350,9 +350,20 @@ startCLi(
       handler: idCommand,
     },
     {
-      name: 'slot <contract> <pos>',
-      description: 'Get the Byte32 value of the position of the contract.',
-      types: {string: ['_']},
+      name: 'slot <contract>',
+      description: 'Get the Byte32 value of a slot in a contract.',
+      options: [
+        {
+          name: '-p <position>',
+          description: 'position of the slot',
+        },
+        {
+          name: '-i',
+          description:
+            'eip 1967 implementation or beacon slot, the first none zero value will be returned.',
+        },
+      ],
+      types: {string: ['p', '_']},
       handler: slotCommand,
     },
     {

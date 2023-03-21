@@ -198,7 +198,7 @@ export interface WalletInterface {
   slot(
     provider: ethers.providers.Provider,
     address: string,
-    pos: string
+    pos?: string
   ): Promise<string>;
   decodeTx(
     provider: ethers.providers.Provider,
