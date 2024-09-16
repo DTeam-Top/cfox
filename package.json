@@ -27,7 +27,7 @@
     "test": "c8 ava"
   },
   "dependencies": {
-    "argon2": "^0.40.3",
+    "argon2": "^0.41.0",
     "better-sqlite3": "^7.6.2"
   },
   "devDependencies": {
